@@ -68,7 +68,15 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Введите размерность массива:");
+            int size = int.Parse(Console.ReadLine());
 
+            WeatherControl weatherControl = new WeatherControl(size);
+            weatherControl.FillArray();
+            weatherControl.SortArray();
+            weatherControl.SaveToFile("indications.txt");
+
+            Console.WriteLine("Все данные записаны в файл 'indications.txt'");
         }
     }
 }
