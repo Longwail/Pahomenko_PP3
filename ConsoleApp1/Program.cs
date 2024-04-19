@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace ConsoleApp1
 {
@@ -25,16 +26,39 @@ namespace ConsoleApp1
             {
                 Indications indications = new Indications();
 
-                Console.WriteLine($"Enter temperature for indication {i + 1}:");
+                Console.WriteLine($"Введите температуру для индикации {i + 1}:");
                 indications.Temperature = double.Parse(Console.ReadLine());
 
-                Console.WriteLine($"Enter humidity for indication {i + 1}:");
+                Console.WriteLine($"Введите влажность для индикации {i + 1}:");
                 indications.Humidity = double.Parse(Console.ReadLine());
 
-                Console.WriteLine($"Enter pressure for indication {i + 1}:");
+                Console.WriteLine($"Введите давление для индикации {i + 1}:");
                 indications.Pressure = double.Parse(Console.ReadLine());
 
                 indicationsArray[i] = indications;
+            }
+        }
+        public void SortArray()
+        {
+            Array.Sort(indicationsArray, (x, y) =>
+            {
+                if (x.Temperature == y.Temperature)
+                {
+                    return y.Humidity.CompareTo(x.Humidity);
+                }
+
+                return x.Temperature.CompareTo(y.Temperature);
+            });
+        }
+
+        public void SaveToFile(string filename)
+        {
+            using (StreamWriter sw = new StreamWriter(filename))
+            {
+                foreach (var indications in indicationsArray)
+                {
+                    sw.WriteLine($"Температура: {indications.Temperature}, Влажность: {indications.Humidity}, Давление: {indications.Pressure}");
+                }
             }
         }
 
@@ -44,7 +68,7 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+
         }
     }
 }
