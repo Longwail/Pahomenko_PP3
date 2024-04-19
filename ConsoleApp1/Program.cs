@@ -22,20 +22,28 @@ namespace ConsoleApp1
 
         public void FillArray()
         {
-            for (int i = 0; i < indicationsArray.Length; i++)
+            try
             {
-                Indications indications = new Indications();
+                for (int i = 0; i < indicationsArray.Length; i++)
+                {
+                    Indications indications = new Indications();
 
-                Console.WriteLine($"Введите температуру для индикации {i + 1}:");
-                indications.Temperature = double.Parse(Console.ReadLine());
+                    Console.WriteLine($"Введите температуру для индикации {i + 1}:");
+                    indications.Temperature = double.Parse(Console.ReadLine());
 
-                Console.WriteLine($"Введите влажность для индикации {i + 1}:");
-                indications.Humidity = double.Parse(Console.ReadLine());
+                    Console.WriteLine($"Введите влажность для индикации {i + 1}:");
+                    indications.Humidity = double.Parse(Console.ReadLine());
 
-                Console.WriteLine($"Введите давление для индикации {i + 1}:");
-                indications.Pressure = double.Parse(Console.ReadLine());
+                    Console.WriteLine($"Введите давление для индикации {i + 1}:");
+                    indications.Pressure = double.Parse(Console.ReadLine());
 
-                indicationsArray[i] = indications;
+                    indicationsArray[i] = indications;
+                }
+            }
+
+            catch 
+            {
+                Console.WriteLine("Вы ввели не число");
             }
         }
         public void SortArray()
@@ -68,15 +76,23 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Введите размерность массива:");
-            int size = int.Parse(Console.ReadLine());
+            try
+            {
+                Console.WriteLine("Введите размерность массива:");
+                int size = int.Parse(Console.ReadLine());
 
-            WeatherControl weatherControl = new WeatherControl(size);
-            weatherControl.FillArray();
-            weatherControl.SortArray();
-            weatherControl.SaveToFile("indications.txt");
+                WeatherControl weatherControl = new WeatherControl(size);
+                weatherControl.FillArray();
+                weatherControl.SortArray();
+                weatherControl.SaveToFile("indications.txt");
 
-            Console.WriteLine("Все данные записаны в файл 'indications.txt'");
+                Console.WriteLine("Все данные записаны в файл 'indications.txt'");
+            }
+
+            catch 
+            {
+                Console.WriteLine("Вы ввели не число");
+            }
         }
     }
 }
